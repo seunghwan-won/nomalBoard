@@ -2,10 +2,13 @@ package cc.ewqr.config.auth.dto;
 
 import cc.ewqr.domain.user.Role;
 import cc.ewqr.domain.user.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
 public class OAuthAttribute {
+    private static Logger logger = LoggerFactory.getLogger(OAuthAttribute.class);
     private Map<String, Object> attributes;
     private String nameAttributeKey;
     private String name;
@@ -41,10 +44,25 @@ public class OAuthAttribute {
     }
 
     public static OAuthAttribute of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
-        return ofGoogle(registrationId, userNameAttributeName, attributes);
+        if("naver".equals(registrationId)) {
+            return ofNaver("id", attributes);
+        }
+        return ofGoogle(userNameAttributeName, attributes);
     }
 
-    private static OAuthAttribute ofGoogle(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
+    private static OAuthAttribute ofNaver(String userNameAttributeName, Map<String, Object> attributes) {
+        Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+
+        return new Builder()
+                .name((String) response.get("name"))
+                .email((String) response.get("email"))
+                .picture((String) response.get("profile_image"))
+                .attributes(response)
+                .nameAttributeKey(userNameAttributeName)
+                .build();
+    }
+
+    private static OAuthAttribute ofGoogle(String userNameAttributeName, Map<String, Object> attributes) {
         return new Builder()
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
