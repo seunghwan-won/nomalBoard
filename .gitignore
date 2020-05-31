@@ -2,5 +2,6 @@
 .gradle
 .idea
 build
-application*.yml
+src/main/resources/application-oauth.yml
+src/main/resources/application-real-db.yml
 .DS_Store
