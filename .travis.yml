@@ -23,6 +23,10 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     bucket: deploy-bot-test
+    key: nomalBoard.zip
+    bundle-type: zip
+    application: normalBoard
+    deployment-group: normalBoard-group
     region: ap-northeast-2
     skip_cleanup: true
     acl: private
