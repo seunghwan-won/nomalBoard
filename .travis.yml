@@ -15,9 +15,9 @@ cache:
 script: './gradlew clean build'
 
 before_deploy:
-  - zip -r normalBoard *
+  - zip -r nomalBoard *
   - mkdir -p deploy
-  - mv normalBoad.zip deploy/normalBoad.zip
+  - mv nomalBoard.zip deploy/nomalBoard.zip
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY
