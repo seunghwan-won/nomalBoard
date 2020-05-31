@@ -23,14 +23,20 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     bucket: deploy-bot-test
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait-until-deployed: true
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: deploy-bot-test
     key: nomalBoard.zip
     bundle-type: zip
     application: normalBoard
     deployment-group: normalBoard-group
     region: ap-northeast-2
-    skip_cleanup: true
-    acl: private
-    local_dir: deploy
     wait-until-deployed: true
 #CI 실행 완료시 메일로 알람
 notifications:
